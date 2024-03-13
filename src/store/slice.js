@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  contacts: [],
+  filter: '',
+  loading: false,
+  error: null,
+};
+
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    contacts: [],
-    filter: '',
-  },
+  initialState,
   reducers: {
     addContact(state, action) {
       state.contacts.push(action.payload);
@@ -18,10 +22,30 @@ const contactsSlice = createSlice({
     changeFilter(state, action) {
       state.filter = action.payload;
     },
+    setContacts(state, action) {
+      state.contacts = action.payload;
+    },
+    setLoading(state, action) {
+      state.loading = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
+    },
   },
 });
-export const selectContactsState = state => state.contacts.contacts;
+
+export const {
+  addContact,
+  deleteContact,
+  changeFilter,
+  setContacts,
+  setLoading,
+  setError,
+} = contactsSlice.actions;
+
+export const selectContacts = state => state.contacts.contacts;
 export const selectFilter = state => state.contacts.filter;
-export const contactsSliceReducer = contactsSlice.reducer;
-export const { addContact, deleteContact, changeFilter } =
-  contactsSlice.actions;
+export const selectLoading = state => state.contacts.loading;
+export const selectError = state => state.contacts.error;
+
+export default contactsSlice.reducer;

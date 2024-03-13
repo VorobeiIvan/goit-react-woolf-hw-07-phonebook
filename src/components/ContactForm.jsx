@@ -1,33 +1,24 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
-import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { addNewContactThunk } from '../store/thunk';
 import NameInput from './NameInput';
 import NumberInput from './NumberInput';
-import { addContact } from '../store/slice';
-import { selectContactsState } from '../store/slice';
+
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContactsState);
+
   const formSubmitHandler = event => {
     event.preventDefault();
 
-    if (
-      contacts.some(
-        contact => contact.name === name || contact.number === number
-      )
-    ) {
-      alert('Contact with this name or number already exists!');
-      return;
-    }
-
-    const contact = {
-      id: nanoid(),
+    const contactData = {
       name: name,
       number: number,
     };
-    dispatch(addContact(contact));
+
+    dispatch(addNewContactThunk(contactData));
+
     setName('');
     setNumber('');
   };
