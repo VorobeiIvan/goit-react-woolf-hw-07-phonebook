@@ -1,0 +1,126 @@
+/* Reset */
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+/*App container */
+.container {
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Section */
+.section-title {
+  margin-bottom: 16px;
+  color: rgb(97, 155, 155);
+  font-size: 40px;
+}
+
+/* ContactForm */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.btn-add {
+  color: rgb(7, 86, 86);
+  text-transform: capitalize;
+  font-size: 20px;
+  padding: 4px 24px;
+  border: 1px solid rgb(187, 197, 197);
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover,
+  focus {
+    color: azure;
+    background-color: rgb(191, 217, 193);
+  }
+}
+
+/* Input */
+.wrapper {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  margin-left: 4px;
+  color: rgb(110, 121, 121);
+  font-size: 24px;
+}
+
+.input {
+  padding: 6px 12px;
+  font-size: 16px;
+  color: rgb(27, 38, 28);
+  border: 1px solid rgb(187, 197, 197);
+  border-radius: 8px;
+
+  &:hover,
+  :focus,
+  :active {
+    border-color: rgb(100, 114, 102);
+  }
+
+  outline: transparent;
+}
+
+/* ContactsList */
+.contacts-item {
+  color: rgb(7, 86, 86);
+  font-size: 24px;
+  font-weight: 700;
+
+  &:hover {
+    color: rgb(39, 51, 40);
+  }
+}
+
+/* ContactList */
+.contact-list {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.contact-item {
+  color: rgb(110, 121, 121);
+  font-size: 24px;
+}
+
+.btn-del {
+  margin-left: 40px;
+  color: rgb(7, 86, 86);
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 4px 16px;
+  border: 1px solid rgb(187, 197, 197);
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover,
+  focus {
+    color: azure;
+    background-color: rgb(206, 69, 69);
+  }
+}
