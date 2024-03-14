@@ -1,51 +1,69 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+  addContactThunk,
+  deleteContactThunk,
+  fetchContactsThunk,
+} from './thunk';
 
 const initialState = {
-  contacts: [],
+  contacts: {
+    items: [],
+    isLoading: false,
+    error: null,
+  },
   filter: '',
-  loading: false,
-  error: null,
 };
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    addContact(state, action) {
-      state.contacts.push(action.payload);
-    },
-    deleteContact(state, action) {
-      state.contacts = state.contacts.filter(
-        contact => contact.id !== action.payload
-      );
-    },
-    changeFilter(state, action) {
+    setFilter(state, action) {
       state.filter = action.payload;
     },
-    setContacts(state, action) {
-      state.contacts = action.payload;
-    },
-    setLoading(state, action) {
-      state.loading = action.payload;
-    },
-    setError(state, action) {
-      state.error = action.payload;
-    },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContactsThunk.pending, state => {
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
+      })
+      .addCase(fetchContactsThunk.fulfilled, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.items = action.payload;
+      })
+      .addCase(fetchContactsThunk.rejected, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = action.error.message;
+      })
+      .addCase(addContactThunk.pending, state => {
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
+      })
+      .addCase(addContactThunk.fulfilled, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.items.push(action.payload);
+      })
+      .addCase(addContactThunk.rejected, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = action.error.message;
+      })
+      .addCase(deleteContactThunk.pending, state => {
+        state.contacts.isLoading = true;
+        state.contacts.error = null;
+      })
+      .addCase(deleteContactThunk.fulfilled, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.items = state.contacts.items.filter(
+          contact => contact.id !== action.payload
+        );
+      })
+      .addCase(deleteContactThunk.rejected, (state, action) => {
+        state.contacts.isLoading = false;
+        state.contacts.error = action.error.message;
+      });
   },
 });
 
-export const {
-  addContact,
-  deleteContact,
-  changeFilter,
-  setContacts,
-  setLoading,
-  setError,
-} = contactsSlice.actions;
-
-export const selectContacts = state => state.contacts.contacts;
-export const selectFilter = state => state.contacts.filter;
-export const selectLoading = state => state.contacts.loading;
-export const selectError = state => state.contacts.error;
-
+export const { setFilter } = contactsSlice.actions;
 export default contactsSlice.reducer;

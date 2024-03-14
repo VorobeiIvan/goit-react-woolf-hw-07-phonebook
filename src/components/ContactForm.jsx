@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { addNewContactThunk } from '../store/thunk';
+import { addContactThunk } from '../store/thunk';
 import NameInput from './NameInput';
 import NumberInput from './NumberInput';
 
@@ -17,7 +17,7 @@ const ContactForm = () => {
       number: number,
     };
 
-    dispatch(addNewContactThunk(contactData));
+    dispatch(addContactThunk(contactData));
 
     setName('');
     setNumber('');

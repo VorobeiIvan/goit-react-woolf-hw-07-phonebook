@@ -1,71 +1,23 @@
-
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact, filterContacts } from './api';
-import { setLoading, setError, setContacts } from './slice';
+import { fetchContacts, addContact, deleteContact } from './api';
 
-const fetchContactsThunk = createAsyncThunk(
-  'contacts/fetchContacts',
-  async (_, { dispatch }) => {
-    try {
-      dispatch(setLoading(true));
-      const contacts = await fetchContacts();
-      dispatch(setContacts(contacts));
-    } catch (error) {
-      dispatch(setError(error.message));
-    } finally {
-      dispatch(setLoading(false));
-    }
+export const fetchContactsThunk = createAsyncThunk(
+  'contacts/fetchAll',
+  async () => {
+    return await fetchContacts();
   }
 );
 
-const addNewContactThunk = createAsyncThunk(
+export const addContactThunk = createAsyncThunk(
   'contacts/addContact',
-  async (contactData, { dispatch }) => {
-    try {
-      dispatch(setLoading(true));
-      const newContact = await addContact(contactData);
-      return newContact;
-    } catch (error) {
-      dispatch(setError(error.message));
-    } finally {
-      dispatch(setLoading(false));
-    }
+  async contactData => {
+    return await addContact(contactData);
   }
 );
 
-const deleteContactThunk = createAsyncThunk(
+export const deleteContactThunk = createAsyncThunk(
   'contacts/deleteContact',
-  async (contactId, { dispatch }) => {
-    try {
-      dispatch(setLoading(true));
-      await deleteContact(contactId);
-      return contactId;
-    } catch (error) {
-      dispatch(setError(error.message));
-    } finally {
-      dispatch(setLoading(false));
-    }
+  async contactId => {
+    return await deleteContact(contactId);
   }
 );
-
-const filterContactsThunk = createAsyncThunk(
-  'contacts/filterContacts',
-  async (filter, { dispatch }) => {
-    try {
-      dispatch(setLoading(true));
-      const filteredContacts = await filterContacts(filter);
-      return filteredContacts;
-    } catch (error) {
-      dispatch(setError(error.message));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  }
-);
-
-export {
-  fetchContactsThunk,
-  addNewContactThunk,
-  deleteContactThunk,
-  filterContactsThunk,
-};
