@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const baseURL =
-  'https://65f1f4bc034bdbecc7641d5b.mockapi.io/contacts';
+const baseURL = 'https://65f1f4bc034bdbecc7641d5b.mockapi.io/contacts/';
 const contactsEndpoint = '/contacts';
 
 export const fetchContacts = async () => {
@@ -16,17 +15,13 @@ export const fetchContacts = async () => {
 
 export const addContact = async contactData => {
   try {
-    const response = await axios.post(
-      `${baseURL}${contactsEndpoint}`,
-      contactData
-    );
+    const response = await axios.post(`${baseURL}${contactsEndpoint}`, contactData);
     return response.data;
   } catch (error) {
     console.error('Error adding contact:', error);
     throw new Error('Failed to add contact');
   }
 };
-
 export const deleteContact = async contactId => {
   try {
     await axios.delete(`${baseURL}${contactsEndpoint}/${contactId}`);
@@ -39,9 +34,7 @@ export const deleteContact = async contactId => {
 
 export const filterContacts = async filter => {
   try {
-    const response = await axios.get(
-      `${baseURL}${contactsEndpoint}?filter=${filter}`
-    );
+    const response = await axios.get(`${baseURL}${contactsEndpoint}?filter=${filter}`);
     return response.data;
   } catch (error) {
     console.error('Error filtering contacts:', error);
